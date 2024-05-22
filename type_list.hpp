@@ -110,6 +110,23 @@ struct type_list_append<type_list<LT...>, T> {
 template <typename List, typename T>
 using type_list_append_t = typename type_list_append<List, T>::type;
 
+// element
+template <typename List, unsigned Idx>
+struct type_list_element;
+
+template <typename Head, typename... Tail>
+struct type_list_element<type_list<Head, Tail...>, 0> {
+  using type = Head;
+};
+
+template <typename Head, typename... Tail, unsigned Idx>
+struct type_list_element<type_list<Head, Tail...>, Idx> {
+  using type = typename type_list_element<type_list<Tail...>, Idx-1>::type;
+};
+
+template <typename List, unsigned Idx>
+using type_list_element_t = typename type_list_element<List, Idx>::type;
+
 // index
 template <typename List, typename T>
 struct type_list_index : std::integral_constant<int, -1> {};

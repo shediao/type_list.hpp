@@ -34,6 +34,19 @@ int main() {
   static_assert(type_list_index_v<type_list<bool, long, int>, char> == -1);
 
   static_assert(
+      std::is_same_v<type_list_element_t<type_list<int>, 0>, int>);
+  static_assert(
+      std::is_same_v<type_list_element_t<type_list<int, long>, 1>, long>);
+  static_assert(
+      std::is_same_v<type_list_element_t<type_list<int, bool, int, long>, 3>, long>);
+  static_assert(
+      std::is_same_v<type_list_element_t<type_list<int, bool, int, long>, 2>, int>);
+  static_assert(
+      std::is_same_v<type_list_element_t<type_list<int, bool, int, long>, 1>, bool>);
+  static_assert(
+      std::is_same_v<type_list_element_t<type_list<int, bool, int, long>, 0>, int>);
+
+  static_assert(
       std::is_same_v<type_list_concat_t<type_list<>, type_list<>, type_list<>>,
                      type_list<>>);
   static_assert(
